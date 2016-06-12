@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <title>SNAKE</title>
+    <style type="text/css">
+        body {
+            vertical-align: center;
+        }
+        table {
+            border-spacing: 0;
+            mso-cellspacing: 0;
+            border: 1px solid;
+            margin-top: 20px;
+        }
+        td {
+            border: 1px solid;
+            border-color: #000;
+            padding: 10px;
+            margin: 0px;
+        }
+        input[type="text"] {
+            width: 20px;
+        }
+        .snakebody {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>SNAKE</h2>
+
+    <form id="form">
+        <label>Enter the size:</label>
+        <input type="text" id="row"/> &times <input type="text" id="col"/>
+        <input type="submit" id="submit"/>
+    </form>
+
+    <div id="table"></div>
+    <button id='switch'>Start / Stop</button>
+
+</body>
+<script type="text/javascript" src='snake.js'></script>
+</html>
