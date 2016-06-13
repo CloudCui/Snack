@@ -14,10 +14,16 @@ var nextDirection = 1;
 
 var snake = [];
 
+/**
+ * Init after page is loaded
+ */
 document.addEventListener("DOMContentLoaded", function(event) { 
     init();
 });
 
+/**
+ * Use input to Draw grid
+ */
 document.getElementById('submit').onclick = function (event) {
     event.preventDefault();
     var row = document.getElementById('row').value;
@@ -26,6 +32,11 @@ document.getElementById('submit').onclick = function (event) {
     // document.getElementById('table').innerHTML = createTable(20, 20);
 };
 
+/**
+ * Start / Stop
+ *
+ * If Started is clicked, start to move, by the interval of 1000 ms
+ */
 document.getElementById('switch').onclick = function (event) {
     event.preventDefault();
     if(!started) {
@@ -38,6 +49,9 @@ document.getElementById('switch').onclick = function (event) {
     }
 };
 
+/**
+ * Direction Listener
+ */
 document.onkeydown = function (e) {
     // console.log(e.keyCode);
     switch(e.keyCode) {
@@ -58,6 +72,13 @@ document.onkeydown = function (e) {
     }
 };
 
+
+
+/**
+ * Init the grid, including:
+ * - create the table
+ * - create the snake
+ */
 function init() {
     document.getElementById('table').innerHTML = createTable(20, 20);
     
@@ -91,7 +112,11 @@ function update() {
 }
 
 
-//---------------functions----------------------
+/**
+ * Create the table
+ * TODO: to merge createRow() and createCell() together all in this function
+ *       since they are doing the creating table, and nowhere else is using it
+ */
 function createTable(row, col) {
     var table = '<table><tbody>';
     for(var i = row; i > 0; i--) {
@@ -101,6 +126,9 @@ function createTable(row, col) {
     return table;
 }
 
+/**
+ * create the row 
+ */
 function createRow(r, col) {
     var row = '<tr>';
     for(var i = col; i > 0; i--) {
@@ -110,11 +138,18 @@ function createRow(r, col) {
     return row;
 }
 
+/**
+ * create the cell
+ */
 function createCell(y, x) {
     var id = x + '_' + y;
     return '<td id = ' + id + '></td>';
 }
 
+
+/**
+ * Move, the next direction before actual move depends on the global @var nextDirection
+ */
 function move() {
     switch(nextDirection) {
         case up:
