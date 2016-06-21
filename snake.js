@@ -8,11 +8,14 @@ const right = 2;
 const down = 3;
 const left = 4;
 
+const interval = 800; // ms
+
 var started = false;
 var stopper;
 var nextStep = '9_11';
 var nextDirection = up;
-var snake = ['9_10', '9_9'];
+var snake = ['9_10', '9_9', '9_8', '9_7'];
+var fruit = '15_12';
 
 /**
  * Init after page is loaded
@@ -44,7 +47,7 @@ document.getElementById('switch').onclick = function (event) {
     event.preventDefault();
     if(!started) {
         // init();
-        stopper = setInterval('move()', 1000);
+        stopper = setInterval('move()', interval);
         started = true;
     } else {
         window.clearInterval(stopper);
@@ -82,6 +85,7 @@ document.onkeydown = function (e) {
 function init() {
     document.getElementById('table').innerHTML = createTable(20, 20);
     render(snake);
+    drawFruit();
 
 }
 
@@ -130,13 +134,18 @@ function createCell(y, x) {
  */
 function render(s) {
     for(var i = 0; i < s.length; i++) {
-        var pos = s[i].split('_');
-        console.log(pos);
-        var sPart = document.getElementById(pos[0] + '_' + pos[1]);
+   // var pos
+        var sPart = document.getElementById(s[i]);
         sPart.classList.add('snakebody');
     }
 }
 
+/**
+ * draw the fruit
+ */
+function drawFruit() {
+    document.getElementById(fruit).classList.add('fruit');
+}
 
 /**
  * Move, the next direction before actual move depends on the global @var nextStep
@@ -165,7 +174,6 @@ function move() {
 
     nextStep = posToStr(tmpPos);
 
-
     console.log(snake);
 
 
@@ -183,9 +191,13 @@ function move() {
 function rebuildSnake() {
     snake.unshift(nextStep);
 
-    var tail = document.getElementById(snake.pop());
-    tail.classList.remove('snakebody');
 
+    if(!isFruit(nextStep)) {
+        var tail = document.getElementById(snake.pop());
+        tail.classList.remove('snakebody');
+    } else {
+        reDrawFruit();
+    }
 
     for(var i = 0; i < snake.length; i++) {
         var el = document.getElementById(snake[i]);
@@ -193,15 +205,20 @@ function rebuildSnake() {
     }
 }
 
-/**
- * return first element in Snake
- */
-function getSnakeHead() {
-
+function isFruit(next) {
+    return next == fruit;
 }
 
 function getSnakeHead() {
     return snake[0];
+}
+
+function reDrawFruit() {
+    var currentFruit = document.getElementById(fruit);
+    currentFruit.classList.remove('fruit');
+
+    // generate a random fruit from available spaces
+
 }
 
 /**
