@@ -11,15 +11,21 @@ jobs:
 
     runs-on: ubuntu-latest
 
+#     steps:
+#     - uses: actions/checkout@v2
+
+#     - name: Validate composer.json and composer.lock
+#       run: composer validate
+
+#     - name: Install dependencies
+#       run: composer install --prefer-dist --no-progress --no-suggest
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
-
+      - name: Hello world
+        run: echo Hello world $FIRST_NAME $middle_name $Last_Name!
+        env:
+          FIRST_NAME: Mona
+          middle_name: The
+          Last_Name: Octocat
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
